@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Persongalleri</title>
   </head>
   <body>
     <template>
@@ -19,8 +19,6 @@
     <script>
       const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
 
-      const medieurl = "https://persongalleri-5d3e.restdb.io/media/";
-
       const options = {
         headers: {
           "x-apikey": "600fe9211346a1524ff12e31",
@@ -30,7 +28,7 @@
       async function hentData() {
         const respons = await fetch(url, options);
         const json = await respons.json();
-        console.log(json);
+
         vis(json);
       }
       const main = document.querySelector("main");
@@ -40,7 +38,7 @@
         console.log(json);
         json.forEach((person) => {
           const klon = template.cloneNode(true);
-          klon.querySelector(".billede").src = medieurl + person.billede;
+          klon.querySelector(".billede").src = "faces/" + person.billede;
           klon.querySelector(".navn").textContent = person.navn;
           klon.querySelector(".titel").textContent = person.titel;
           klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
