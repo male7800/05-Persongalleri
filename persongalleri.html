@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>JSON</title>
+
+    <style>
+      section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+
+      article {
+        border: 1px solid #333;
+        padding: 10px;
+        margin: 1em;
+      }
+
+      img {
+        max-width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <template>
+      <article>
+        <h2 class="fornavn">NAVN</h2>
+        <h3 class="efternavn">EFTERNAVN</h3>
+        <p class="MAIL">MAIL</p>
+      </article>
+    </template>
+
+    <script>
+      "user strict";
+
+      const fil = "undervisere.json";
+
+      async function hentdata(fil) {
+        const resultat = await fetch(fil);
+        const json = await resultat.json();
+        vis(json);
+      }
+
+      function vis(json) {
+        const beholder = document.querySelector("main");
+        const skabelon = document.querySelector("template");
+        json.forEach((underviser) => {
+          const klon = skabelon.cloneNode(true).content;
+          klon.querySelector(".fornavn").textContent = underviser.fornavn;
+          klon.querySelector(".efternavn").textContent = underviser.efternavn;
+          klon.querySelector(".mail").textContent = underviser.mail;
+          beholder.appendChild(klon);
+        });
+      }
+
+      hentdata(fil);
+    </script>
+  </body>
+</html>
